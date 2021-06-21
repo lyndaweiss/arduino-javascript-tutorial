@@ -1,6 +1,6 @@
-tutorial-nonresponsive.css
-tutorial-nonresponsive.js
-tutorial-responsive.js
+./tutorial-nonresponsive.css
+./tutorial-nonresponsive.js
+./tutorial-responsive.js
 
 # Unused Image files
 images/ArduinoIDE-01.jpg
