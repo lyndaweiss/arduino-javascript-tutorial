@@ -1,0 +1,39 @@
+<h1>Overview</h1>
+<p>
+  In this tutorial, we will cover communicating with an Arduino UNO from a web
+  browser, using the JavaScript runtime environment
+  <a href="https://nodejs.org" target="_blank">Node.js</a>. An overview of how
+  this system will work is shown below in Figure 1.
+</p>
+<figure>
+  <div class="scrollable-x">
+    <picture>
+      <source
+        media="(max-width: 768px)"
+        srcset="images/overview-mobile-350w.png"
+      />
+      <source media="(min-width: 769px)" srcset="images/overview-03-750.jpg" />
+      <img
+        src="images/overview-03-750.jpg"
+        alt="Picture of host-->target architecture"
+      />
+    </picture>
+  </div>
+  <figcaption>Figure 1 - Architecture</figcaption>
+</figure>
+<p>
+  In the browser there will be a form with a couple of inputs. When the form is
+  submittted, the input values will be sent to a server via a socket. The server
+  will then read the data and send it on to the Arduino over the serial (USB)
+  port. On the Arduino there will be a program that repeatedly checks the serial
+  port for data - when it arrives, the program reads it and does something with
+  it, (blinking an LED in this case).
+</p>
+<p>
+  We will start by covering what hardware and software is required, followed by
+  going over installation of Node.js, Node socket and serial port modules, and
+  the Arduino Integrated Development Environment (IDE). Next, we will cover
+  writing the client HTML and JavaScript, writing the server (also in
+  JavaScript), and the Arduino program. We will conclude with wiring up the
+  Arduino circuit and running the example.
+</p>

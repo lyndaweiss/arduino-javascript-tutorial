@@ -1,0 +1,11 @@
+RewriteEngine On
+
+RewriteBase /robotics/arduino-javascript/
+
+RewriteCond %{SERVER_PORT} !=443
+RewriteRule ^(.*)$ https://arduino-javascript.lyndaweiss.net/$1 [R=301,L]
+
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]

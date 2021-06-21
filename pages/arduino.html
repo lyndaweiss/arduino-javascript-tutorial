@@ -1,0 +1,79 @@
+<h1>Arduino Sketch</h1>
+
+<p>The Arduino code is written using the Arduino Integrated Development Environment (IDE), which will also be used to compile and upload the code to the Arduino UNO board.</p>
+
+<p>Start the Arduino IDE. If this is your first time running it, it should look like the skeleton program  shown in below in Figure 2. If not, create a new sketch (File&rarr;New or <kbd>Ctrl</kbd>+<kbd>N</kbd>).</p>
+
+<figure>
+    <div class="scrollable-x">
+      <picture>
+        <source
+          media="(max-width: 540px)"
+          srcset="images/WindowsArduinoIDENewFile-mobile-350w.png"
+        />
+        <source media="(min-width: 541px)" srcset="images/WindowsArduinoIDENewFile.png" />
+        <img src="images/WindowsArduinoIDENewFile.png" alt="Image of Arduino IDE">
+      </picture>
+    </div>
+    <figcaption>Figure 2 - Arduino IDE</figcaption>
+</figure>
+
+<p>Arduino programs (called sketches) have two sections, Setup and Loop. The Setup section is for initialization (setting pin modes, etc.), and runs once, after the Arduino is powered on or reset. The Loop section contains the instructions for what the program does once it gets going. As the name implies, the instructions are continually repeated.</p>
+
+<p>The sketch uses the Arduino programming language, specifically the <a href="https://www.arduino.cc/reference/en#digital-io" target="_blank">Digital IO</a>, <a href="https://www.arduino.cc/reference/en/language/functions/communication/serial/" target="_blank">Serial</a>, and <a href="https://www.arduino.cc/reference/en#time" target="_blank">Time</a> functions. You can find more information about the specifics of the functions in the <a href="https://www.arduino.cc/reference/en/" target="_blank">Arduino Language Reference</a>.</p>
+
+<p>Below is this example's Setup code, which consists of 2 steps.</p>
+    <ol>
+        <li>Set the pin connected to the LED to be an output</li>
+        <li>Open the serial port and set its baud rate</li>
+    </ol> 
+<p>The argument to the <code class="code-inline">Serial.begin()</code> should be set to the same number that the server uses when opening the USB port connection (see the <a href="server">Server</a> section of this tutorial).</p>
+
+<figure>
+  <pre><code class="language-cpp">
+  void setup() {
+    pinMode(7, OUTPUT);     // Set pin 7 to be an Output                
+    Serial.begin(115200);   // Set baud rate of serial connection
+  }
+  </code></pre>
+  <figcaption>Figure 3 - Arduino Sketch Setup</figcaption>
+</figure>
+
+<p>Below is the Loop section, and there are three main steps.
+<ol>
+    <li>
+        Check the serial port at the beginning of each iteration, to see if there is data to be read.
+    </li>
+    <li>
+        If data is present, read it into strings, using the ':' as a separator. Then convert the strings to integers (using <a href="https://www.arduino.cc/reference/en/language/variables/data-types/string/functions/toint/" target="_blank"><code class="code-inline">toInt()</code></a>), so it can be 
+        used in the Blink loop, and by the <code class="code-inline">delay()</code> function..
+    </li>
+    <li>
+        Blink the LED, using the data read from the serial port. The first argument to <code class="code-inline">digitalWrite()</code> is the same pin that was set to OUTPUT in Setup.
+    </li>
+</ol>
+</p>
+
+<figure>
+  <pre><code class="language-cpp">
+  void loop() {
+    // 1. Check serial port to see if there is data.
+    if (Serial.available() > 0) {
+      // 2. Read the serial port data into strings
+      // Number of times LED blinks
+      int numBlinks = Serial.readStringUntil(':').toInt();
+      // Milliseconds between blinks
+      int blinkDelay = Serial.readStringUntil(':').toInt();
+
+      // 3. Blink the LED
+      for (int i=0;i&lt;numBlinks;i++) {
+        digitalWrite(7, HIGH);
+        delay(blinkDelay);
+        digitalWrite(7, LOW);
+        delay(blinkDelay);
+      }
+    }
+  }
+  </code></pre>
+  <figcaption>Figure 4 - Arduino Sketch Main Loop</figcaption>
+</figure>

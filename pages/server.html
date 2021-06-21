@@ -1,0 +1,103 @@
+<h1>Server</h1>
+
+<p>The server is written in JavaScript and performs the following functions:
+    <ol>
+        <li>Handling HTTP requests (loading and refreshing the client web page)</li>
+        <li>Handling communication with the Arduino via the USB port</li>
+        <li>Handling communication with the client via a socket</li>
+    </ol>
+Below, we'll go through each section of the code, from beginning to end.</p>
+
+<p>First 5 modules need to be included. These modules are used to create the HTTP server, to access the file system, and to communicate with the USB port and client socket. There is more information about the first three modules in the <a href="https://nodejs.org/api/" target="_blank">Node.js API Documentation</a>, about the Serial Port module in its <a href="https://serialport.io/docs/guide-usage" target="_blank">Usage Guide</a>, and about the Socket module in the <a href="https://socket.io/docs/" target="_blank">Socket.io Documentation</a>.</p>
+
+<figure>
+  <pre><code class="language-js">
+  // Node.js standard library modules
+  const http = require('http');   // web server
+  const fs = require('fs');       // interact with file system (read, write, etc.)
+  const path = require('path');   // methods for working with file/directory paths
+  // Installed modules 
+  const serialPort = require('serialport');   // interface with USB port
+  const socketio = require('socket.io');      // socket communication with client
+  </code></pre>
+  <figcaption>Figure 1 - Server Modules</figcaption>
+</figure>
+
+<p>Next is the HTTP server code. This section starts with a handler that gets registered with the server when it is created. The handler attempts to read the requested file, writing it to the browser if successful, and outputting an error message if unsuccessful. Note that the call to the file system module (fs) method <code class="code-inline">readFile()</code> is using the Node.js variable <code class="code-inline">__dirname</code>. This variable contains the absolute path to the current Node module, which in this case is the path to this server. This server is based on examples from the <a href="https://nodejs.dev/learn/introduction-to-nodejs" target="_blank">Introduction to Node.js</a> documentation.</p>
+
+<figure>
+  <pre><code class="language-js">
+  // Web server handler callback
+  function handler(request, response) {
+    // Get the filename from request URL sent by browser
+    let fileName = request.url;
+    if (request.url === '/') {
+        fileName += 'index.html';
+    }
+
+    // Object containing Content types for writing HTTP header, using file extensions as keys
+    const contentTypes = {
+        '.html': 'text/html',
+        '.js': 'text/javascript',
+    };
+
+    // Read and serve requested file 
+    fs.readFile(`${__dirname}${fileName}`, (err, data) => {
+        if (err) {
+            response.writeHead(500);
+            return response.end(`Error loading ${fileName}`);
+        }
+    
+        // Send HTTP header, using the requested file's extension to access type in contentTypes
+        response.writeHead(200, {"Content-Type": `${contentTypes[path.extname(fileName)]}`});
+        response.end(data);
+    });
+  }
+    
+  // Create HTTP server and register handler from above
+  const server = http.createServer(handler);
+  </code></pre>
+  <figcaption>Figure 2 - HTTP Server</figcaption>
+</figure>
+
+<p>Next, a USB port connection to the Arduino is created and opened using the serialport module. Two parameters are required to create the connection, path and baud rate. If your server is running on Windows, the path is COM* (replace * with a a number). You can find the specific port by starting the Windows Device Manager, and looking under Ports (COM & LPT). If the server runs on Linux, the path to the USB port will be '/dev/ttyUSB* or /dev/ttyACM*' (replace * with a number). The baud rate should match the rate used in your Arduino sketch (which we'll write in the next section). After opening the port, listeners for the port open and error events are registered.</p>
+
+<figure>
+  <pre><code class="language-js">
+  // Create and open serial port connection to Arduino
+  const arduinoPort = new serialPort('COM5', {baudRate: 115200});
+  arduinoPort.on('open', () => console.log(`Serial port to Arduino opened.`));
+  arduinoPort.on('error', err => console.log(`Error: ${err.message}`));
+  </code></pre>
+  <figcaption>Figure 3 - USB Port Connection to Arduino</figcaption>
+</figure>
+
+<p>Finally, a socket to listen for connections from the client is created. Also, a listener that handles the 'led' event we defined in the client is registered. This 'led' event listener will package the client data into a single tokenized string and send it to the Arduino via the USB port.</p>
+
+<figure>
+  <pre><code class="language-js">
+  // Create socket and attach to HTTP server
+  const socketServer = socketio.listen(server);
+
+  // Listen and handle client socket connections
+  socketServer.on('connect', socket => {
+    // Client led message event listener
+    socket.on('led', data => {
+        // Add the ':' character after each property - the Arduino sketch will use 
+        // this to separate the data.
+        const ledData = `${data['blinks']}:${data['delay']}:`;
+        arduinoPort.write(ledData);
+    });
+  });
+  </code></pre>
+  <figcaption>Figure 4 - Socket Connection to Client</figcaption>
+</figure>
+
+<p>All the components of the server are now created and initialized. In the last line the server is started and it listens on the given port.</p>
+<figure>
+  <pre><code class="language-js">
+  // Start server and have it listen on port 8000
+  server.listen(8000, 'localhost');
+  </code></pre>
+  <figcaption>Figure 5 - Start the Server!</figcaption>
+</figure>

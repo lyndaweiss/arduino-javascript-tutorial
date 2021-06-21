@@ -1,0 +1,247 @@
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+/* Element styles */
+h1,
+h2,
+h3 {
+  font-weight: normal;
+}
+/* 
+h2::after {
+  content: "\2261";
+}
+ */
+p {
+  line-height: 1.5;
+}
+
+p kbd {
+  font-size: 1.2em;
+  border: solid black 0.0625em;
+  border-radius: 0.1875em;
+  padding: 0 0.125em;
+}
+
+a:link,
+a:visited {
+  text-decoration: none;
+  color: purple;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  line-height: 1.5;
+}
+
+/* figure img {
+  box-shadow: 5px 5px 5px lightgrey;
+  border: solid thick lightgrey;
+} */
+
+figure figcaption {
+  font-size: 0.9em;
+  padding: 5px 0;
+}
+
+header h2 {
+  text-align: center;
+}
+
+footer a {
+  /* text-decoration: none; */
+  padding-bottom: 20px;
+}
+
+footer a#prev {
+  float: left;
+}
+
+footer a#next {
+  float: right;
+}
+
+/* App class styles */
+.top-container {
+  font-family: "Verdana", sans-serif;
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 4em 1fr;
+}
+
+.nav-container {
+  color: cornsilk;
+  background-color: purple;
+  padding: 0px 10px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.main-container {
+  color: #050505;
+  background-color: #ffffff;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-column-gap: 2em;
+  overflow: hidden;
+}
+
+.toc-container {
+  padding: 10px 10px;
+  border-right: 2px solid lightgray;
+}
+
+.toc-container h2 {
+  display: none;
+}
+
+.toc-container ul {
+  padding-left: 20px;
+}
+
+.content-container {
+  padding: 0 10px;
+  overflow-y: auto;
+}
+
+.image-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: end;
+}
+
+.code-inline {
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  color: #2d2d2d;
+  background-color: #dddddd;
+  padding: 2px;
+}
+
+.image-border {
+  border: solid medium lightgrey;
+}
+
+/* For small screens */
+@media screen and (max-width: 768px) {
+  /* h3 {
+    font-size: 0.8em;
+    padding: 0 5px;
+    margin: 0;
+  } */
+
+  li {
+    line-height: normal;
+  }
+
+  figure {
+    margin: 1em 0;
+  }
+
+  .main-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: fit-content(2.5em) 1fr;
+  }
+
+  .nav-container h2 {
+    font-size: 1em;
+    max-width: 85%;
+    margin: 0.83em auto;
+  }
+
+  .toc-container {
+    background-color: #f1eef1;
+    border-right: none;
+  }
+
+  .toc-container h2 {
+    display: inherit;
+    font-size: 1em;
+    margin: 0;
+  }
+
+  .toc {
+    display: none;
+  }
+
+  .toc.active {
+    display: block;
+  }
+
+  .toc li h3,
+  .toc li a {
+    font-size: 0.8em;
+  }
+
+  .content-container {
+    max-height: 88%;
+  }
+
+  .image-container {
+    grid-template-columns: 1fr;
+  }
+
+  .image-container p {
+    margin-top: 0;
+  }
+
+  .scrollable-x {
+    overflow-x: auto;
+  }
+
+  /* 
+  .toc-container > ul {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 0;
+    margin: 5px;
+  }
+
+  .menu {
+    display: none;
+  }
+
+  .menu li a {
+    font-size: 0.75em;
+  }
+
+  .menu-visible {
+    position: absolute;
+    top: 2em;
+    display: block;
+    background-color: #ccd1d1;
+  }
+  */
+}
+
+/* For wide screens */
+@media screen and (min-width: 1600px) {
+  article,
+  footer {
+    max-width: 75%;
+  }
+
+  pre {
+    width: 60em;
+  }
+
+  .toc-container > ul {
+    float: right;
+    padding-right: 20px;
+  }
+
+  .toc-container > ul > li:nth-child(1) > h3 {
+    margin-top: 0;
+  }
+}

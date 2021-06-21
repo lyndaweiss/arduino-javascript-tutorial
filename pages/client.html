@@ -1,0 +1,99 @@
+<h1>Client</h1>
+
+<p>
+  The client consists of a web page with a small form that contains two inputs
+  and a button. The inputs are for entering the number of times the LED should
+  blink and the amount of time between each blink. Figure 1 shows what the page
+  looks like in the browser. To keep things simple, there is no styling or
+  stylesheet included.
+</p>
+
+<figure>
+  <img
+    class="image-border"
+    src="images/Browser.jpg"
+    alt="Picture of client in browser"
+  />
+  <figcaption>Figure 1 - Browser</figcaption>
+</figure>
+
+<p>
+  Below is the HTML for the page. HTML id attributes are assigned to the form
+  elements, and will be accessed by the client JavaScript. There are two scripts
+  referenced by the page, <code class="code-inline">socket.io.js</code>, which
+  is the client socket.io library, and
+  <code class="code-inline">blink-client.js</code>, which handles the
+  communication to the server.
+</p>
+
+<figure>
+  <pre><code class="language-html">
+  &lt;!DOCTYPE html&gt;
+  &lt;html lang="en"&gt;
+    &lt;head&gt;
+      &lt;meta charset="utf-8"&gt;
+      &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+      &lt;title&gt;Arduino connectivity test&lt;/title&gt;
+    &lt;/head&gt;
+  
+    &lt;body&gt;
+    
+      &lt;h1&gt;Blink the LED!&lt;/h1&gt;
+      &lt;div&gt;
+        &lt;label&gt;
+          &lt;input type="text" id="ledNumBlink" value="0" /&gt;
+          Number of Blinks
+        &lt;/label&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;label&gt;
+          &lt;input type="text" id="ledBlinkDelay" value="500" /&gt;
+          Blink Delay (ms)
+        &lt;/label&gt;
+      &lt;/div&gt;
+      &lt;button id="ledBlink"&gt;Blink&lt;/button&gt;
+  
+      &lt;!-- For socket communication --&gt;
+      &lt;script src="/socket.io/socket.io.js"&gt;&lt;/script&gt;
+  
+      &lt;!-- Blink client handler --&gt;
+      &lt;script src="blink-client.js"&gt;&lt;/script&gt;
+  
+    &lt;/body&gt;
+  &lt;/html&gt;
+  </code></pre>
+  <figcaption>Figure 2 - HTML</figcaption>
+</figure>
+
+<p>
+  Finally we have the client JavaScript, shown below in Figure 3. In the first
+  line, a client socket is created, using the
+  <code class="code-inline">io()</code> function exposed by the client socket
+  library. The parameter given to the
+  <code class="code-inline">io()</code> function is the server URL and port.
+  Next, the id attributes of the inputs and button are used to create objects
+  that reference these elements. Finally, an event listener is added to handle
+  the button clicks and send the input values to the server over the socket.
+</p>
+
+<figure>
+  <pre><code class="language-js">
+  // Create client socket
+  let socket = io('localhost:8000');
+
+  // Variables referencing the two inputs and button
+  const numBlinksInput = document.querySelector('#ledNumBlink');
+  const delayBlinksInput = document.querySelector('#ledBlinkDelay');
+  const ledBlinkButton = document.querySelector('#ledBlink');
+
+  // Button click handler that gets the input values and sends them to the server
+  ledBlinkButton.addEventListener('click', () => {
+      const blinkData = { 
+        blinks: numBlinksInput.value,
+        delay: delayBlinksInput.value,
+      };
+      socket.emit('led', blinkData);
+  });
+  </code></pre>
+  <figcaption>Figure 3 - JavaScript</figcaption>
+</figure>
