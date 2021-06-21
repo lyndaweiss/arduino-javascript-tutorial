@@ -1,5 +1,5 @@
-./tutorial-nonresponsive.css
 ./tutorial-nonresponsive.js
+./tutorial-responsive.css
 ./tutorial-responsive.js
 
 # Unused Image files
@@ -45,4 +45,4 @@ images/*.txt
 images/*.zip
 
 # Visual Studio Code settings
-.vscode/
+.vscode/*
