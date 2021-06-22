@@ -1,0 +1,13 @@
+RewriteEngine On
+
+# Set base URL
+RewriteBase <insert path to index.html here>
+
+# Redirect to https if necessary
+RewriteCond %{SERVER_PORT} !=443
+RewriteRule ^(.*)$ <insert tutorial URL here>/$1 [R=301,L]
+
+# Redirect all incoming requests to index.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
