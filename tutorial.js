@@ -1,4 +1,5 @@
 (function() {
+  // For navigation: prev <--- page ---> next
   const pages = {
     overview: { next: "requirements", prev: "" },
     requirements: { next: "installation", prev: "overview" },
@@ -12,6 +13,7 @@
   const contentContainer = document.querySelector(".content-container");
   const articleContainer = document.querySelector(".content-container article");
 
+  // Change article when navigating to new section 
   let req = new XMLHttpRequest();
   req.addEventListener("load", () => {
     if (req.readyState === XMLHttpRequest.DONE && req.status === 200) {
@@ -29,6 +31,7 @@
     req.send();
   }
 
+  // Helper functions
   function getTargetFileBasename(fileName) {
     const lastSlashIndex = fileName.lastIndexOf("/");
     return fileName.slice(lastSlashIndex + 1);
@@ -59,7 +62,8 @@
     return str.charAt(0).toUpperCase() + str.substring(1);
   }
 
-  // Event Listeners
+  // Event Listeners 
+  // Collapse Table of Contents on small screens
   if (window.innerWidth <= 768) {
     const tableOfContentsContainer = document.querySelector(".toc-container");
     const navMenu = document.querySelector(".toc");
@@ -69,6 +73,7 @@
     });
   }
 
+  // Handle selecting a section through either the Table of Contents or Next/Prev link
   const sectionLinks = document.querySelectorAll(".toc li ul li a, footer a");
   sectionLinks.forEach((link) => {
     link.addEventListener("click", (event) => {
@@ -88,6 +93,7 @@
     localStorage.setItem("contentScroll", contentContainer.scrollTop);
   });
 
+  // Stay on the same page on refresh
   window.addEventListener("load", (event) => {
     const targetFileName = getTargetFileName(window.location);
 
@@ -98,6 +104,7 @@
     history.pushState({}, "", targetFileName);
   });
 
+  // Handle Back and Forward events
   window.addEventListener("popstate", (event) => {
     const targetFileName = getTargetFileName(event.target.location);
     getContents(targetFileName);
