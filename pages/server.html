@@ -33,7 +33,7 @@ Below, we'll go through each section of the code, from beginning to end.</p>
   <figcaption>Figure 2 - Serial Port Path Variable</figcaption>
 </figure>
 
-<p>Next is the HTTP server code. This section starts with a handler that gets registered with the server when it is created. The handler attempts to read the requested file, writing it to the browser if successful, and outputting an error message if unsuccessful. Note that the call to the file system module (fs) method <code class="code-inline">readFile()</code> is using the Node.js variable <code class="code-inline">__dirname</code>. This variable contains the absolute path to the current Node module, which in this case is the path to this server. This server is based on examples from the <a href="https://nodejs.dev/learn/introduction-to-nodejs" target="_blank">Introduction to Node.js</a> documentation.</p>
+<p>Next is the HTTP server code. This section starts with a handler that gets registered with the server when it is created. The handler attempts to read the requested file, writing it to the browser if successful, and outputting an error message if unsuccessful. Note that the call to the file system module (fs) method <code class="code-inline">readFile()</code> is using the Node.js variable <code class="code-inline">__dirname</code>. This variable contains the absolute path to the current Node module, which in this case is the path to this server. This server is based on examples from the <a href="https://nodejs.dev/en/learn/introduction-to-nodejs" target="_blank">Introduction to Node.js</a> documentation.</p>
 
 <figure>
   <pre><code class="language-js">
