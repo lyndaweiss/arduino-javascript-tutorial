@@ -17,8 +17,8 @@ Below, we'll go through each section of the code, from beginning to end.</p>
   const fs = require('fs');       // interact with file system (read, write, etc.)
   const path = require('path');   // methods for working with file/directory paths
   // Installed modules 
-  const serialPort = require('serialport');   // interface with USB port
-  const socketio = require('socket.io');      // socket communication with client
+  const { SerialPort } = require('serialport');   // interface with USB port
+  const { Server } = require('socket.io');        // socket communication with client
   </code></pre>
   <figcaption>Figure 1 - Server Modules</figcaption>
 </figure>
@@ -65,7 +65,7 @@ Below, we'll go through each section of the code, from beginning to end.</p>
 <figure>
   <pre><code class="language-js">
   // Create and open serial port connection to Arduino
-  const arduinoPort = new serialPort('COM5', {baudRate: 115200});
+  const arduinoPort = new SerialPort({path: arduinoPortPath, baudRate: 115200});
   arduinoPort.on('open', () => console.log(`Serial port to Arduino opened.`));
   arduinoPort.on('error', err => console.log(`Error: ${err.message}`));
   </code></pre>
@@ -77,7 +77,7 @@ Below, we'll go through each section of the code, from beginning to end.</p>
 <figure>
   <pre><code class="language-js">
   // Create socket and attach to HTTP server
-  const socketServer = socketio.listen(server);
+  const socketServer = new Server(server);
 
   // Listen and handle client socket connections
   socketServer.on('connect', socket => {
