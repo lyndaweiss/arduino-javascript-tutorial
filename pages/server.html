@@ -23,6 +23,16 @@ Below, we'll go through each section of the code, from beginning to end.</p>
   <figcaption>Figure 1 - Server Modules</figcaption>
 </figure>
 
+<p>Next we declare a variable to hold the path to the serial port used to communicate with the Arduino. If your server is running on Windows, the path is COM* (replace * with a a number). You can find the specific port by starting the Windows Device Manager, and looking under Ports (COM & LPT). If the server runs on Linux, the path to the USB port will be '/dev/ttyUSB* or /dev/ttyACM*' (replace * with a number). The value should be supplied as an argument when the server is started, but if it is not, this variable will be set to a  default value. You can read more about the Node process object and its argv property in the <a href="https://nodejs.org/docs/latest/api/process.html#processargv" target="_blank">Node.js Documentation</a></p>
+
+<figure>
+  <pre><code class="language-js">
+    // Path to serial port to communicate with arduino
+    const arduinoPortPath = process.argv.length === 3 ? process.argv[2] : 'COM1';
+  </code></pre>
+  <figcaption>Figure 2 - Serial Port Path Variable</figcaption>
+</figure>
+
 <p>Next is the HTTP server code. This section starts with a handler that gets registered with the server when it is created. The handler attempts to read the requested file, writing it to the browser if successful, and outputting an error message if unsuccessful. Note that the call to the file system module (fs) method <code class="code-inline">readFile()</code> is using the Node.js variable <code class="code-inline">__dirname</code>. This variable contains the absolute path to the current Node module, which in this case is the path to this server. This server is based on examples from the <a href="https://nodejs.dev/learn/introduction-to-nodejs" target="_blank">Introduction to Node.js</a> documentation.</p>
 
 <figure>
@@ -57,10 +67,10 @@ Below, we'll go through each section of the code, from beginning to end.</p>
   // Create HTTP server and register handler from above
   const server = http.createServer(handler);
   </code></pre>
-  <figcaption>Figure 2 - HTTP Server</figcaption>
+  <figcaption>Figure 3 - HTTP Server</figcaption>
 </figure>
 
-<p>Next, a USB port connection to the Arduino is created and opened using the serialport module. Two parameters are required to create the connection, path and baud rate. If your server is running on Windows, the path is COM* (replace * with a a number). You can find the specific port by starting the Windows Device Manager, and looking under Ports (COM & LPT). If the server runs on Linux, the path to the USB port will be '/dev/ttyUSB* or /dev/ttyACM*' (replace * with a number). The baud rate should match the rate used in your Arduino sketch (which we'll write in the next section). After opening the port, listeners for the port open and error events are registered.</p>
+<p>Next, a USB port connection to the Arduino is created and opened using the serialport module. Two parameters are required to create the connection, path and baud rate. The path value is contained in the <code class="code-inline">arduinoPortPath</code> variable we declared earlier. The baud rate should match the rate used in your Arduino sketch (which we'll write in the next section). After opening the port, listeners for the port open and error events are registered.</p>
 
 <figure>
   <pre><code class="language-js">
@@ -69,7 +79,7 @@ Below, we'll go through each section of the code, from beginning to end.</p>
   arduinoPort.on('open', () => console.log(`Serial port to Arduino opened.`));
   arduinoPort.on('error', err => console.log(`Error: ${err.message}`));
   </code></pre>
-  <figcaption>Figure 3 - USB Port Connection to Arduino</figcaption>
+  <figcaption>Figure 4 - USB Port Connection to Arduino</figcaption>
 </figure>
 
 <p>Finally, a socket to listen for connections from the client is created. Also, a listener that handles the 'led' event we defined in the client is registered. This 'led' event listener will package the client data into a single tokenized string and send it to the Arduino via the USB port.</p>
@@ -90,7 +100,7 @@ Below, we'll go through each section of the code, from beginning to end.</p>
     });
   });
   </code></pre>
-  <figcaption>Figure 4 - Socket Connection to Client</figcaption>
+  <figcaption>Figure 5 - Socket Connection to Client</figcaption>
 </figure>
 
 <p>All the components of the server are now created and initialized. In the last line the server is started and it listens on the given port.</p>
@@ -99,5 +109,5 @@ Below, we'll go through each section of the code, from beginning to end.</p>
   // Start server and have it listen on port 8000
   server.listen(8000, 'localhost');
   </code></pre>
-  <figcaption>Figure 5 - Start the Server!</figcaption>
+  <figcaption>Figure 6 - Start the Server!</figcaption>
 </figure>
