@@ -30,7 +30,8 @@
 <p>The argument to the <code class="code-inline">Serial.begin()</code> should be set to the same number that the server uses when opening the USB port connection (see the <a href="server">Server</a> section of this tutorial).</p>
 
 <figure>
-  <pre><code class="language-cpp">
+  <button class="copy-button">Copy</button>
+  <pre><code class="language-cpp can-copy">
   void setup() {
     pinMode(7, OUTPUT);     // Set pin 7 to be an Output                
     Serial.begin(115200);   // Set baud rate of serial connection
@@ -55,7 +56,8 @@
 </p>
 
 <figure>
-  <pre><code class="language-cpp">
+  <button class="copy-button">Copy</button>
+  <pre><code class="language-cpp can-copy">
   void loop() {
     // 1. Check serial port to see if there is data.
     if (Serial.available() > 0) {

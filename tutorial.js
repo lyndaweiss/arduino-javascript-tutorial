@@ -1,3 +1,5 @@
+import startCodeCopy from "./code-copy.js";
+
 (function() {
   // For navigation: prev <--- page ---> next
   const pages = {
@@ -19,6 +21,7 @@
     if (req.readyState === XMLHttpRequest.DONE && req.status === 200) {
       articleContainer.textContent = "";
       articleContainer.insertAdjacentHTML("afterbegin", req.responseText);
+      startCodeCopy();
       window.Prism.highlightAll();
     } else if (req.readyState === XMLHttpRequest.DONE && req.status === 404) {
       contentContainer.textContent = "";
