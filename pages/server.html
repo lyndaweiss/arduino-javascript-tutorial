@@ -11,7 +11,9 @@ Below, we'll go through each section of the code, from beginning to end.</p>
 <p>First 5 modules need to be included. These modules are used to create the HTTP server, to access the file system, and to communicate with the USB port and client socket. There is more information about the first three modules in the <a href="https://nodejs.org/api/" target="_blank">Node.js API Documentation</a>, about the Serial Port module in its <a href="https://serialport.io/docs/guide-usage" target="_blank">Usage Guide</a>, and about the Socket module in the <a href="https://socket.io/docs/" target="_blank">Socket.io Documentation</a>.</p>
 
 <figure>
-  <button class="copy-button">Copy</button>
+  <button class="copy-button" aria-label="copy to clipboard">
+    <i class="fas fa-clone fa-lg"></i>
+  </button>
   <pre><code class="language-js can-copy">
   // Node.js standard library modules
   const http = require('http');   // web server
@@ -27,7 +29,9 @@ Below, we'll go through each section of the code, from beginning to end.</p>
 <p>Next we declare a variable to hold the path to the serial port used to communicate with the Arduino. If your server is running on Windows, the path is COM* (replace * with a a number). You can find the specific port by starting the Windows Device Manager, and looking under Ports (COM & LPT). If the server runs on Linux, the path to the USB port will be '/dev/ttyUSB* or /dev/ttyACM*' (replace * with a number). The value should be supplied as an argument when the server is started, but if it is not, this variable will be set to a  default value. You can read more about the Node process object and its argv property in the <a href="https://nodejs.org/docs/latest/api/process.html#processargv" target="_blank">Node.js Documentation</a></p>
 
 <figure>
-  <button class="copy-button">Copy</button>
+  <button class="copy-button" aria-label="copy to clipboard">
+    <i class="fas fa-clone fa-lg"></i>
+  </button>
   <pre><code class="language-js can-copy">
   // Path to serial port to communicate with arduino
   const arduinoPortPath = process.argv.length === 3 ? process.argv[2] : 'COM1';
@@ -38,7 +42,9 @@ Below, we'll go through each section of the code, from beginning to end.</p>
 <p>Next is the HTTP server code. This section starts with a handler that gets registered with the server when it is created. The handler attempts to read the requested file, writing it to the browser if successful, and outputting an error message if unsuccessful. Note that the call to the file system module (fs) method <code class="code-inline">readFile()</code> is using the Node.js variable <code class="code-inline">__dirname</code>. This variable contains the absolute path to the current Node module, which in this case is the path to this server. This server is based on examples from the <a href="https://nodejs.dev/en/learn/introduction-to-nodejs" target="_blank">Introduction to Node.js</a> documentation.</p>
 
 <figure>
-  <button class="copy-button">Copy</button>
+  <button class="copy-button" aria-label="copy to clipboard">
+    <i class="fas fa-clone fa-lg"></i>
+  </button>
   <pre><code class="language-js can-copy">
   // Web server handler callback
   function handler(request, response) {
@@ -76,7 +82,9 @@ Below, we'll go through each section of the code, from beginning to end.</p>
 <p>Next, a USB port connection to the Arduino is created and opened using the serialport module. Two parameters are required to create the connection, path and baud rate. The path value is contained in the <code class="code-inline">arduinoPortPath</code> variable we declared earlier. The baud rate should match the rate used in your Arduino sketch (which we'll write in the next section). After opening the port, listeners for the port open and error events are registered.</p>
 
 <figure>
-  <button class="copy-button">Copy</button>
+  <button class="copy-button" aria-label="copy to clipboard">
+    <i class="fas fa-clone fa-lg"></i>
+  </button>
   <pre><code class="language-js can-copy">
   // Create and open serial port connection to Arduino
   const arduinoPort = new SerialPort({path: arduinoPortPath, baudRate: 115200});
@@ -89,7 +97,9 @@ Below, we'll go through each section of the code, from beginning to end.</p>
 <p>Finally, a socket to listen for connections from the client is created. Also, a listener that handles the 'led' event we defined in the client is registered. This 'led' event listener will package the client data into a single tokenized string and send it to the Arduino via the USB port.</p>
 
 <figure>
-  <button class="copy-button">Copy</button>
+  <button class="copy-button" aria-label="copy to clipboard">
+    <i class="fas fa-clone fa-lg"></i>
+  </button>
   <pre><code class="language-js can-copy">
   // Create socket and attach to HTTP server
   const socketServer = new Server(server);
@@ -110,7 +120,9 @@ Below, we'll go through each section of the code, from beginning to end.</p>
 
 <p>All the components of the server are now created and initialized. In the last line the server is started and it listens on the given port.</p>
 <figure>
-  <button class="copy-button">Copy</button>
+  <button class="copy-button" aria-label="copy to clipboard">
+    <i class="fas fa-clone fa-lg"></i>
+  </button>
   <pre><code class="language-js can-copy">
   // Start server and have it listen on port 8000
   server.listen(8000, 'localhost');

@@ -2,7 +2,7 @@
 
 <p>The Arduino code is written using the Arduino Integrated Development Environment (IDE), which will also be used to compile and upload the code to the Arduino UNO board.</p>
 
-<p>Start the Arduino IDE. If this is your first time running it, it should look like the skeleton program  shown in below in Figure 2. If not, create a new sketch (File&rarr;New or <kbd>Ctrl</kbd>+<kbd>N</kbd>).</p>
+<p>Start the Arduino IDE. If this is your first time running it, it should look like the skeleton program  shown in below in Figure 1. If not, create a new sketch (File&rarr;New or <kbd>Ctrl</kbd>+<kbd>N</kbd>).</p>
 
 <figure>
     <div class="scrollable-x">
@@ -15,7 +15,7 @@
         <img src="images/WindowsArduinoIDENewFile.png" alt="Image of Arduino IDE">
       </picture>
     </div>
-    <figcaption>Figure 2 - Arduino IDE</figcaption>
+    <figcaption>Figure 1 - Arduino IDE</figcaption>
 </figure>
 
 <p>Arduino programs (called sketches) have two sections, Setup and Loop. The Setup section is for initialization (setting pin modes, etc.), and runs once, after the Arduino is powered on or reset. The Loop section contains the instructions for what the program does once it gets going. As the name implies, the instructions are continually repeated.</p>
@@ -30,14 +30,16 @@
 <p>The argument to the <code class="code-inline">Serial.begin()</code> should be set to the same number that the server uses when opening the USB port connection (see the <a href="server">Server</a> section of this tutorial).</p>
 
 <figure>
-  <button class="copy-button">Copy</button>
+  <button class="copy-button" aria-label="copy to clipboard">
+    <i class="fas fa-clone fa-lg"></i>
+  </button>
   <pre><code class="language-cpp can-copy">
   void setup() {
     pinMode(7, OUTPUT);     // Set pin 7 to be an Output                
     Serial.begin(115200);   // Set baud rate of serial connection
   }
   </code></pre>
-  <figcaption>Figure 3 - Arduino Sketch Setup</figcaption>
+  <figcaption>Figure 2 - Arduino Sketch Setup</figcaption>
 </figure>
 
 <p>Below is the Loop section, and there are three main steps.
@@ -50,13 +52,16 @@
         used in the Blink loop, and by the <code class="code-inline">delay()</code> function..
     </li>
     <li>
-        Blink the LED, using the data read from the serial port. The first argument to <code class="code-inline">digitalWrite()</code> is the same pin that was set to OUTPUT in Setup.
+        Blink the LED, using the data read from the serial port. The first argument to
+        <code class="code-inline">digitalWrite()</code> is the same pin that was set to OUTPUT in Setup.
     </li>
 </ol>
 </p>
 
 <figure>
-  <button class="copy-button">Copy</button>
+  <button class="copy-button" aria-label="copy to clipboard">
+    <i class="fas fa-clone fa-lg"></i>
+  </button>
   <pre><code class="language-cpp can-copy">
   void loop() {
     // 1. Check serial port to see if there is data.
@@ -77,5 +82,5 @@
     }
   }
   </code></pre>
-  <figcaption>Figure 4 - Arduino Sketch Main Loop</figcaption>
+  <figcaption>Figure 3 - Arduino Sketch Main Loop</figcaption>
 </figure>
