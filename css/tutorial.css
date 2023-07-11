@@ -72,9 +72,9 @@ footer a#next {
 }
 
 .site-header {
-  color: cornsilk;
+  color: #fff8dc;
   background-color: purple;
-  padding: 0px 10px;
+  padding: 0 1.125rem;
   box-sizing: border-box;
   width: 100%;
 }
@@ -143,11 +143,11 @@ footer a#next {
     grid-template-rows: fit-content(2.5em) 1fr;
   }
 
-  .site-header h2 {
+  /* .site-header h2 {
     font-size: 1em;
     max-width: 85%;
     margin: 0.83em auto;
-  }
+  } */
 
   .toc-container {
     background-color: #f1eef1;
