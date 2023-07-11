@@ -9,11 +9,7 @@ h2,
 h3 {
   font-weight: normal;
 }
-/* 
-h2::after {
-  content: "\2261";
-}
- */
+
 p {
   line-height: 1.5;
 }
@@ -42,11 +38,6 @@ ul {
 li {
   line-height: 1.5;
 }
-
-/* figure img {
-  box-shadow: 5px 5px 5px lightgrey;
-  border: solid thick lightgrey;
-} */
 
 figure figcaption {
   font-size: 0.9em;
@@ -98,7 +89,8 @@ footer a#next {
 }
 
 .toc-container {
-  padding: 10px 10px;
+  min-width: 17rem;
+  padding: .625rem .625rem;
   border-right: 2px solid lightgray;
 }
 
@@ -107,7 +99,11 @@ footer a#next {
 }
 
 .toc-container ul {
-  padding-left: 20px;
+  padding-left: 1.25rem;
+}
+
+.toc > li > h3 {
+  margin-bottom: 0;
 }
 
 .content-container {
@@ -133,13 +129,7 @@ footer a#next {
 }
 
 /* For small screens */
-@media screen and (max-width: 768px) {
-  /* h3 {
-    font-size: 0.8em;
-    padding: 0 5px;
-    margin: 0;
-  } */
-
+@media screen and (max-width: 48rem) {
   li {
     line-height: normal;
   }
@@ -161,12 +151,13 @@ footer a#next {
 
   .toc-container {
     background-color: #f1eef1;
+    min-width: auto;
     border-right: none;
   }
 
   .toc-container h2 {
     display: inherit;
-    font-size: 1em;
+    font-size: 1.25rem;
     margin: 0;
   }
 
@@ -178,9 +169,12 @@ footer a#next {
     display: block;
   }
 
-  .toc li h3,
-  .toc li a {
-    font-size: 0.8em;
+  .toc > li > h3 {
+    font-size: 1.125rem;
+  }
+
+  .toc li > ul > li {
+    line-height: 2.25;
   }
 
   .content-container {
@@ -198,31 +192,6 @@ footer a#next {
   .scrollable-x {
     overflow-x: auto;
   }
-
-  /* 
-  .toc-container > ul {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    padding: 0;
-    margin: 5px;
-  }
-
-  .menu {
-    display: none;
-  }
-
-  .menu li a {
-    font-size: 0.75em;
-  }
-
-  .menu-visible {
-    position: absolute;
-    top: 2em;
-    display: block;
-    background-color: #ccd1d1;
-  }
-  */
 }
 
 /* For wide screens */
@@ -238,7 +207,7 @@ footer a#next {
 
   .toc-container > ul {
     float: right;
-    padding-right: 20px;
+    padding-right: 1.25rem;
   }
 
   .toc-container > ul > li:nth-child(1) > h3 {
