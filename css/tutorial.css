@@ -91,13 +91,11 @@ footer a#next {
   color: #050505;
   background-color: #ffffff;
   display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-column-gap: 2em;
+  grid-template-columns: 16rem 1fr;
   overflow: hidden;
 }
 
 .toc-container {
-  min-width: 16rem;
   padding: .625rem .625rem;
   border-right: 2px solid lightgray;
 }
