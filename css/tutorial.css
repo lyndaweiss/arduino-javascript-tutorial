@@ -121,6 +121,12 @@ footer a#next {
   overflow-y: auto;
 }
 
+.content-container article,
+.content-container footer {
+  max-width: 64rem;
+  margin: 0 auto;
+}
+
 .image-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -202,26 +208,5 @@ footer a#next {
 
   .scrollable-x {
     overflow-x: auto;
-  }
-}
-
-/* For wide screens */
-@media screen and (min-width: 1600px) {
-  article,
-  footer {
-    max-width: 75%;
-  }
-
-  pre {
-    width: 60em;
-  }
-
-  .toc-container > ul {
-    float: right;
-    padding-right: 1.25rem;
-  }
-
-  .toc-container > ul > li:nth-child(1) > h3 {
-    margin-top: 0;
   }
 }
