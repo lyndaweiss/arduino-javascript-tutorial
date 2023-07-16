@@ -46,12 +46,12 @@ li {
 
 figure figcaption {
   font-size: 0.9em;
-  padding: 5px 0;
+  padding: .3125rem 0;
 }
 
 footer a {
   /* text-decoration: none; */
-  padding-bottom: 20px;
+  padding-bottom: 1.25rem;
 }
 
 footer a#prev {
@@ -137,7 +137,7 @@ footer a#next {
   font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   color: #2d2d2d;
   background-color: #dddddd;
-  padding: 2px;
+  padding: .125rem;
 }
 
 .image-border {
