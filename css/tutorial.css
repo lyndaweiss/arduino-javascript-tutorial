@@ -145,7 +145,7 @@ footer a#next {
 }
 
 /* For small screens */
-@media screen and (max-width: 48rem) {
+@media screen and (max-width: 63rem) {
   li {
     line-height: normal;
   }
