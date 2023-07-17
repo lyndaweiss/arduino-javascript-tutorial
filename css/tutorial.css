@@ -133,7 +133,7 @@ footer a#next {
 
 .image-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   align-items: end;
 }
 
@@ -198,15 +198,17 @@ footer a#next {
     padding-right: .75rem;
   }
 
-  .image-container {
-    grid-template-columns: 1fr;
-  }
-
   .image-container p {
     margin-top: 0;
   }
 
   .scrollable-x {
     overflow-x: auto;
+  }
+}
+
+@media screen and (max-width: 42rem) {
+  .image-container {
+    grid-template-columns: 1fr;
   }
 }
