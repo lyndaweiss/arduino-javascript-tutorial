@@ -44,6 +44,10 @@ li {
   line-height: 1.5;
 }
 
+figure {
+  margin: 1em 0;
+}
+
 figure figcaption {
   font-size: 0.9em;
   padding: .3125rem 0;
@@ -148,10 +152,6 @@ footer a#next {
 @media screen and (max-width: 63rem) {
   li {
     line-height: normal;
-  }
-
-  figure {
-    margin: 1em 0;
   }
 
   .main-container {
