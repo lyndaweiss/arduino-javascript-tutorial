@@ -36,6 +36,11 @@ a:hover {
   text-decoration: underline;
 }
 
+article > ol {
+  list-style-position: inside;
+  padding-left: 1rem;
+}
+
 ul {
   list-style: none;
 }
@@ -129,6 +134,10 @@ footer a#next {
 .content-container footer {
   max-width: 64rem;
   margin: 0 auto;
+}
+
+.content-container li > span.list-item-title {
+  font-weight: bold;
 }
 
 .image-container {
