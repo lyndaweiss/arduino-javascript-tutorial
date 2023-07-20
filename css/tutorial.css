@@ -136,6 +136,10 @@ footer a#next {
   margin: 0 auto;
 }
 
+.content-container li.list-item-text {
+  margin-bottom: 1rem;
+}
+
 .content-container li > span.list-item-title {
   font-weight: bold;
 }

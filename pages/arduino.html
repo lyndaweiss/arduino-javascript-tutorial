@@ -28,8 +28,8 @@
 
 <p>Below is this example's Setup code, which consists of 2 steps.</p>
     <ol>
-        <li>Set the pin connected to the LED to be an output</li>
-        <li>Open the serial port and set its baud rate</li>
+        <li class="list-item-text">Set the pin connected to the LED to be an output</li>
+        <li class="list-item-text">Open the serial port and set its baud rate</li>
     </ol> 
 <p>The argument to the <code class="code-inline">Serial.begin()</code> should be set to the same number that the server uses when opening the USB port connection (see the <a href="server">Server</a> section of this tutorial).</p>
 
@@ -49,14 +49,14 @@
 
 <p>Below is the Loop section, and there are three main steps.
 <ol>
-    <li>
+    <li class="list-item-text">
         Check the serial port at the beginning of each iteration, to see if there is data to be read.
     </li>
-    <li>
+    <li class="list-item-text">
         If data is present, read it into strings, using the ':' as a separator. Then convert the strings to integers (using <a href="https://www.arduino.cc/reference/en/language/variables/data-types/string/functions/toint/" target="_blank"><code class="code-inline">toInt()</code></a>), so it can be 
         used in the Blink loop, and by the <code class="code-inline">delay()</code> function..
     </li>
-    <li>
+    <li class="list-item-text">
         Blink the LED, using the data read from the serial port. The first argument to
         <code class="code-inline">digitalWrite()</code> is the same pin that was set to OUTPUT in Setup.
     </li>
