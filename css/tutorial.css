@@ -1,10 +1,12 @@
 :root {
   --page-header-height: 4rem;
-  --nav-padding-top: .625rem;
-  --nav-h2-height: 1.625rem;
-  --toc-margin-top: 1rem;
-  --available-height: calc(100dvh - (var(--page-header-height) + var(--nav-padding-top) 
-                           + var(--nav-h2-height) + var(--toc-margin-top)));
+  --nav-padding: .625rem;
+  --nav-heading-height: 1.625rem;
+  --toc-margin: 1rem;
+  --available-height-toc: calc(100dvh - (var(--page-header-height) + var(--nav-padding) 
+                               + var(--nav-heading-height) + var(--toc-margin)));
+  --available-height-content: calc(100dvh - var(--page-header-height) - var(--nav-heading-height) 
+                                   - calc(var(--nav-padding)*2));
 }
 
 body {
@@ -222,7 +224,7 @@ footer a#next {
 
   .toc-container > .toggle:checked + label + .toc {
     display: block;
-    max-height: var(--available-height);
+    max-height: var(--available-height-toc);
     overflow-y: auto;
   }
 
@@ -235,7 +237,7 @@ footer a#next {
   }
 
   .content-container {
-    max-height: 88%;
+    max-height: var(--available-height-content);
     padding-left: .75rem;
     padding-right: .75rem;
   }
