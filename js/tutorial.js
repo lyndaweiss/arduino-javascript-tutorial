@@ -14,11 +14,13 @@ import startCodeCopy from "./code-copy.js";
   };
   const contentContainer = document.querySelector(".content-container");
   const articleContainer = document.querySelector(".content-container article");
+  const tocToggle = document.querySelector('.toggle');
 
   // Change article when navigating to new section 
   let req = new XMLHttpRequest();
   req.addEventListener("load", () => {
     if (req.readyState === XMLHttpRequest.DONE && req.status === 200) {
+      collapseTableOfContents();
       articleContainer.textContent = "";
       articleContainer.insertAdjacentHTML("afterbegin", req.responseText);
       startCodeCopy();
@@ -35,6 +37,10 @@ import startCodeCopy from "./code-copy.js";
   }
 
   // Helper functions
+  const collapseTableOfContents = () => {
+    tocToggle.checked = false;
+  }
+
   function getTargetFileBasename(fileName) {
     const lastSlashIndex = fileName.lastIndexOf("/");
     return fileName.slice(lastSlashIndex + 1);
@@ -66,16 +72,6 @@ import startCodeCopy from "./code-copy.js";
   }
 
   // Event Listeners 
-  // Collapse Table of Contents on small screens
-  if (window.innerWidth <= 768) {
-    const tableOfContentsContainer = document.querySelector(".toc-container");
-    const navMenu = document.querySelector(".toc");
-
-    tableOfContentsContainer.addEventListener("click", (event) => {
-      navMenu.classList.toggle("active");
-    });
-  }
-
   // Handle selecting a section through either the Table of Contents or Next/Prev link
   const sectionLinks = document.querySelectorAll(".toc li ul li a, footer a");
   sectionLinks.forEach((link) => {

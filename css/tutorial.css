@@ -118,8 +118,10 @@ footer a#next {
   border-right: 2px solid lightgray;
 }
 
-.toc-container h2 {
-  display: none;
+/* Visually hide */
+.toc-container > h2 {
+  position: absolute;
+  left: -999em;
 }
 
 .toc {
@@ -191,10 +193,26 @@ footer a#next {
     border-right: none;
   }
 
-  .toc-container h2 {
-    display: inherit;
+  /* Visually hide */
+  .toc-container > .toggle {
+    display: block;
+    position: absolute;
+    left: -999em;
+  }
+
+  .toc-container > .toggle + label {
+    display: inline-block;
     font-size: 1.25rem;
     margin: 0;
+    cursor: pointer;
+  }
+
+  .toc-container > .toggle + label::after {
+    content: " \25BC";
+  }
+
+  .toc-container > .toggle:checked + label::after {
+    content: " \25B2";
   }
 
   .toc {
@@ -202,7 +220,7 @@ footer a#next {
     padding-left: 1.25rem;
   }
 
-  .toc.active {
+  .toc-container > .toggle:checked + label + .toc {
     display: block;
     max-height: var(--available-height);
     overflow-y: auto;

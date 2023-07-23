@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/font-awesome/css/all.css">
     <link rel="stylesheet" href="/css/prism.css" />
-    <link rel="stylesheet" href="/css/tutorial.css" />
+    <link rel="stylesheet" href="/css/tutorial.css" media="screen" />
     <link rel="stylesheet" href="/css/code-copy.css" />
     <title>Communicating with Arduino from Browser</title>
   </head>
@@ -18,7 +18,9 @@
 
       <main class="main-container">
         <nav class="toc-container">
-          <h2>Table of Contents &blacktriangledown;</h2>
+          <h2>Table of Contents</h2>
+          <input type="checkbox" id="toc-toggle" class="toggle" hidden aria-hidden="true">
+          <label for="toc-toggle" hidden aria-hidden="true">Table of Contents</label>
           <ul class="toc">
             <li>
               <h3>Getting Started</h3>
